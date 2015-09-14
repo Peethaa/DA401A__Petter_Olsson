@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">DA401A_Petter_Olsson</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <array name="arrayQuotes">
+        <item>"The Cake is a Lie!"</item>
+        <item>"Home is where the heartstone is!"</item>
+        <item>"There is no place like 127.0.0.1."</item>
+        <item>"´If you fall I will be there.´ - Floor"</item>
+        <item>"Code, 21st century´s oxygen."</item>
+        <item>"´One of the most productive days was throwing away
+            1000 lines of code.´ - Ken Thomson"</item>
+        <item>"´Good design adds value faster than it adds cost.´
+            - Thomas C. Gale"</item>
+        <item>"´Talk is cheap. Show me the code.´ - Linus Thorvald"</item>
+        <item>"´Always borrow money from a pessimist. He wont expect it back´ - Oscar Wilde"</item>
+        <item>"Dogs have masters. Cats have staff!"</item>
+    </array>
+
+</resources>
