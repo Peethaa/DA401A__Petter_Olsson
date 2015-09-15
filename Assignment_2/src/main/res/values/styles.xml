@@ -1,8 +1,12 @@
 <resources>
-
+    <color name="custom_yellow">#ffec00</color>
+    <color name="custom_darkgrey">#3d3d3d</color>
+    <color name="custom_black">#000000</color>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="CustomTheme" parent="android:Theme.Light">
         <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/custom_black</item>
+        <item name="android:colorBackground">@color/custom_black</item>
     </style>
 
 </resources>
