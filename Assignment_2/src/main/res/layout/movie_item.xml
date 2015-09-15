@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:background="#3d3d3d">
 
     <ImageView
@@ -12,11 +13,29 @@
         android:id="@+id/fanart"/>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="320dp"
-        android:paddingTop="270dp"
-        android:id="@+id/titleyear"
-        android:gravity="center"
-        android:textColor="#ffec00"/>
+        android:ellipsize="end"
+        android:singleLine="true"
 
-</RelativeLayout>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/title"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:paddingBottom="0dp"
+        android:paddingTop="4dp"
+        android:gravity="center"
+        android:textColor="#ffec00"
+        android:textSize="16sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/year"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:paddingBottom="4dp"
+        android:paddingTop="0dp"
+        android:gravity="center"
+        android:textColor="#ffec00"
+        android:textSize="15sp"/>
+
+</LinearLayout>

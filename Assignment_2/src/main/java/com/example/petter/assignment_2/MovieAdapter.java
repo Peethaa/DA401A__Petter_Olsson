@@ -53,8 +53,11 @@ public class MovieAdapter extends BaseAdapter {
         ImageView fanArt = (ImageView) convertView.findViewById(R.id.fanart);
         fanArt.setImageResource(movie.fanart);
 
-        TextView titleyear = (TextView) convertView.findViewById(R.id.titleyear);
-        titleyear.setText(movie.title+"\n"+movie.year);
+        TextView title = (TextView) convertView.findViewById(R.id.title);
+        title.setText(movie.title);
+
+        TextView year = (TextView) convertView.findViewById(R.id.year);
+        year.setText(movie.year);
 
         return convertView;
     }
