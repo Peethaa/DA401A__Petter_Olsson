@@ -9,4 +9,7 @@
         android:id="@+id/quote_Listview">
     </ListView>
 
+
+
+
 </RelativeLayout>
