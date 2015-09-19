@@ -5,32 +5,32 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.zip.Inflater;
+import java.util.List;
 
 /**
  * Created by PeethTMG on 15-09-2015.
  */
 public class QuoteAdapter extends BaseAdapter{
 
+    List<String> mQuoteList;
     LayoutInflater mLayoutInflater;
 
-    public MovieAdapter(LayoutInflater cLayoutInflater){
+    public QuoteAdapter(List<String> mQuoteList, LayoutInflater mLayoutInflater){
 
-        this.mLayoutInflater = cLayoutInflater;
+        this.mQuoteList = mQuoteList;
+        this.mLayoutInflater = mLayoutInflater;
     }
 
     @Override
     public int getCount() {
-        return 0;
+        return mQuoteList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return mQuoteList.get(position);
     }
 
     @Override
@@ -42,23 +42,12 @@ public class QuoteAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
 
         Log.i("<----getView---->", "QuoteAdapter");
-
         convertView = mLayoutInflater.inflate(R.layout.quote, parent, false);
 
-        Quote quote = (Quote) getItem(position);
+        String quote = mQuoteList.get(position);
 
-        ImageView fanArt = (ImageView) convertView.findViewById(R.id.);
-        fanArt.setImageResource(movie.fanart);
-
-        TextView title = (TextView) convertView.findViewById(R.id.title);
-        title.setText(movie.title);
-
-        TextView year = (TextView) convertView.findViewById(R.id.year);
-        year.setText(movie.year);
-
-        return convertView;
-
-        //convertView =
+        TextView quoteLine = (TextView) convertView.findViewById(R.id.quote_tv);
+        quoteLine.setText(quote);
 
         return convertView;
     }
