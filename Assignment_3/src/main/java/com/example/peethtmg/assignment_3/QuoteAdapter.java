@@ -42,7 +42,9 @@ public class QuoteAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
 
         Log.i("<----getView---->", "QuoteAdapter");
+        if(convertView == null){
         convertView = mLayoutInflater.inflate(R.layout.quote, parent, false);
+        }
 
         String quote = mQuoteList.get(position);
 

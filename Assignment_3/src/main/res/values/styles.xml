@@ -1,10 +1,19 @@
 <resources>
-    <color name="custom_yellow">#ffec00</color>
-    <color name="custom_darkgrey">#3d3d3d</color>
-    <color name="custom_black">#000000</color>
+
+    <!--Three Primary Color-->
+    <color name="custom_LightGrey">#9E9E9E</color>
+    <color name="custom_Grey">#616161</color>
+    <color name="custom_DarkGrey">#212121</color>
+
+    <!--Accent (Secondary) Color-->
+    <color name="custom_Red">#B71C1C</color>
+
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat">
         <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/custom_Red</item>
+        <item name="colorPrimaryDark">@color/custom_DarkGrey</item>
+        <item name="colorAccent">@color/custom_DarkGrey</item>
     </style>
 
 </resources>

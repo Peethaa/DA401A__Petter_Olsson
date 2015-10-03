@@ -105,6 +105,7 @@ public class QuoteFragment extends Fragment {
             Log.i("<----onPostExecute---->", "QuoteFragment");
             mProgress.setVisibility(View.GONE);
             mQuoteList.add(quote);
+            Log.i(quote, "TEST");
             mQuoteAdapter.notifyDataSetChanged();
         }
     }
