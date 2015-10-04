@@ -1,34 +1,31 @@
 package com.example.petter.assignment_4;
 
-import android.app.FragmentTransaction;
+import android.app.DialogFragment;
 import android.location.Location;
-import android.location.LocationListener;
-import android.nfc.Tag;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-
-//Smthn Smthn Dark Side. Glöm inte att ändra fragment för fT
 public class MapsActivity extends FragmentActivity implements
-        GoogleMap.OnMapClickListener,
+        OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
-        com.google.android.gms.location.LocationListener{
+        GoogleMap.OnMarkerClickListener,
+        com.google.android.gms.location.LocationListener {
 
-    private GoogleMap mMap; // Might be null if Google Play services APK is not available.
+    private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
     private static final String TAG = "MapsActivity";
 
@@ -37,109 +34,65 @@ public class MapsActivity extends FragmentActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        setUpMapIfNeeded();
-
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addApi(LocationServices.API),
-                .addConnectionCallbacks(this),
+                .addConnectionCallbacks(this)
+                .addApi(LocationServices.API)
                 .build();
+        mGoogleApiClient.connect();
     }
 
+
+    /**
+     * Manipulates the map once available.
+     * This callback is triggered when the map is ready to be used.
+     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+     * we just add a marker near Sydney, Australia.
+     * If Google Play services is not installed on the device, the user will be prompted to install
+     * it inside the SupportMapFragment. This method will only be triggered once the user has
+     * installed Google Play services and returned to the app.
+     */
     @Override
-    protected void onResume() {
-        super.onResume();
-        setUpMapIfNeeded();
-    }
-
-    /**
-     * Sets up the map if it is possible to do so (i.e., the Google Play services APK is correctly
-     * installed) and the map has not already been instantiated.. This will ensure that we only ever
-     * call {@link #setUpMap()} once when {@link #mMap} is not null.
-     * <p/>
-     * If it isn't installed {@link SupportMapFragment} (and
-     * {@link com.google.android.gms.maps.MapView MapView}) will show a prompt for the user to
-     * install/update the Google Play services APK on their device.
-     * <p/>
-     * A user can return to this FragmentActivity after following the prompt and correctly
-     * installing/updating/enabling the Google Play services. Since the FragmentActivity may not
-     * have been completely destroyed during this process (it is likely that it would only be
-     * stopped or paused), {@link #onCreate(Bundle)} may not be called again so we should call this
-     * method in {@link #onResume()} to guarantee that it will be called.
-     */
-
-
-    private void setUpMapIfNeeded() {
-        // Do a null check to confirm that we have not already instantiated the map.
-        if (mMap == null) {
-            // Try to obtain the map from the SupportMapFragment.
-            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
-                    .getMap();
-            // Check if we were successful in obtaining the map.
-            if (mMap != null) {
-                setUpMap();
-            }
-        }
-    }
-
-    /**
-     * This is where we can add markers or lines, add listeners or move the camera. In this case, we
-     * just add a marker near Africa.
-     * <p/>
-     * This should only be called once and when we are sure that {@link #mMap} is not null.
-     */
-    private void setUpMap() {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(55.600500, 12.979994)).title("Hemma"));
-
-        mMap.setMyLocationEnabled(true); //Här är jag
-        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID); //Karttyp
-
-        //To make a mockup location:
-        //Download telenet
-        //CMD --> telnet localhost
-        //geo fix 55.6 12.97
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
 
         UiSettings mUISettings = mMap.getUiSettings();
         mUISettings.setZoomControlsEnabled(true);
-        mUISettings.setMyLocationButtonEnabled(true);
+        mMap.setMyLocationEnabled(true);
 
-        LatLng home = new LatLng(55.61, 12.97); //Anger en LatLng kordinat
-        LatLng work = new LatLng(57.61, 15.97);
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(home));//Flyttar kameran till kordinaten
-        //mMap.moveCamera(CameraUpdateFactory.zoomTo(16));//Zooma in 1-20
+        // Lat, Long locations
+        LatLng start = new LatLng(55.606716, 12.987827);
+        LatLng home = new LatLng(55.600148, 12.979925);
+        LatLng casino = new LatLng(55.615583, 12.985307);
+        LatLng ubaten = new LatLng(55.602590, 12.992510);
+        LatLng niagara = new LatLng(55.609134, 12.994425);
 
-        Location myLocation = mMap.getMyLocation();//Hämtar nuvarande plats
-        myLocation.getTime(); //Många alternativ
+        //Markers
+        mMap.addMarker(new MarkerOptions().position(home).title("Marker at home").snippet("YOLOSAWWWWWG"));
+        mMap.addMarker(new MarkerOptions().position(casino).title("Marker at Ubaten"));
+        mMap.addMarker(new MarkerOptions().position(ubaten).title("Marker at Casino"));
+        mMap.addMarker(new MarkerOptions().position(niagara).title("Marker in Niagra"));
 
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(start));//Flyttar kameran till kordinaten
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(14));//Zooma in 1-20
 
-        //To add more markers copy and paste below:
-
-
-        mMap.addMarker(new MarkerOptions() //Mycket expansionsvänlig
-                        .position(home)
-                        .title("Hemma")
-                        .snippet("This is sparta!")
-                //För att ändra ikon på kartan. ie. florist, cafe, etc.
-                //.icon(BitmapDescriptorFactory.fromResource(R.drawable.Något))
-        );
-
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(home));//Flyttar kameran till kordinaten
-        mMap.moveCamera(CameraUpdateFactory.zoomTo(16));//Zooma in 1-20
-
-        mMap.setOnMarkerClickListener((GoogleMap.OnMarkerClickListener) this); //Adjust to fit wtih existing marker
-
+        mMap.setOnMarkerClickListener(this);
     }
 
     @Override
-    public void onMapClick(LatLng latLng) { //(Marker marker)
+    public boolean onMarkerClick(Marker marker) {
 
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        FragmentTransaction fT = getSupportFragmentManager().beginTransaction();
+        DialogFragment newFrag = new MarkerClickDialog();
+        //newFrag.show(fT, "dialog");
 
-        MarkerClickDialog mDialog = new MarkerClickDialog();
+        //mDialog.show(ft,"dialog"
+        return false;
 
-        mDialog.show(ft,"dialog");
-
-        return true;
     }
 
     @Override
@@ -149,7 +102,7 @@ public class MapsActivity extends FragmentActivity implements
         mLocationRequest.setInterval(10000);
         mLocationRequest.setFastestInterval(5000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,mLocationRequest,this);
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
     }
 
     @Override
@@ -159,10 +112,6 @@ public class MapsActivity extends FragmentActivity implements
 
     @Override
     public void onLocationChanged(Location location) {
-        Log.i(TAG,"Location" +location.getLongitude()+"time"+ getTime);
+
     }
-
-
 }
-
-

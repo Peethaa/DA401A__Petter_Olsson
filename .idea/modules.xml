@@ -5,8 +5,9 @@
       <module fileurl="file://$PROJECT_DIR$/Assignment_1/Assignment_1.iml" filepath="$PROJECT_DIR$/Assignment_1/Assignment_1.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment_2/Assignment_2.iml" filepath="$PROJECT_DIR$/Assignment_2/Assignment_2.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment_3/Assignment_3.iml" filepath="$PROJECT_DIR$/Assignment_3/Assignment_3.iml" />
-      <module fileurl="file://$PROJECT_DIR$/assignment_4/Assignment_4.iml" filepath="$PROJECT_DIR$/assignment_4/Assignment_4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Assignment_4-FAIL/Assignment_4-FAIL.iml" filepath="$PROJECT_DIR$/Assignment_4-FAIL/Assignment_4-FAIL.iml" />
       <module fileurl="file://$PROJECT_DIR$/DA401A__Petter_Olsson.iml" filepath="$PROJECT_DIR$/DA401A__Petter_Olsson.iml" />
+      <module fileurl="file://$PROJECT_DIR$/assignment_4/assignment_4.iml" filepath="$PROJECT_DIR$/assignment_4/assignment_4.iml" />
     </modules>
   </component>
 </project>
