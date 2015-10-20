@@ -1,12 +1,17 @@
 package com.example.petter.assignment_4;
 
-import android.app.DialogFragment;
 import android.location.Location;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 
+import com.example.petter.assignment_4.Questions.Qfour;
+import com.example.petter.assignment_4.Questions.Qone;
+import com.example.petter.assignment_4.Questions.Qthree;
+import com.example.petter.assignment_4.Questions.Qtwo;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -19,16 +24,23 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
+/**
+ * Created by Petter on 04-10-2015.
+ */
+
 public class MapsActivity extends FragmentActivity implements
         OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
-        GoogleMap.OnMarkerClickListener,
-        com.google.android.gms.location.LocationListener {
+        com.google.android.gms.location.LocationListener{
 
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
     private static final String TAG = "MapsActivity";
 
+    private ArrayList<LatLng> markerLatLng = new ArrayList<>();
+    private ArrayList<Marker> markerPos = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +56,10 @@ public class MapsActivity extends FragmentActivity implements
                 .addApi(LocationServices.API)
                 .build();
         mGoogleApiClient.connect();
+
+        FragmentTransaction fT = getSupportFragmentManager().beginTransaction();
+        MarkerClickDialog dialogStart = new MarkerClickDialog();
+        dialogStart.show(fT, "");
     }
 
 
@@ -71,28 +87,54 @@ public class MapsActivity extends FragmentActivity implements
         LatLng ubaten = new LatLng(55.602590, 12.992510);
         LatLng niagara = new LatLng(55.609134, 12.994425);
 
-        //Markers
-        mMap.addMarker(new MarkerOptions().position(home).title("Marker at home").snippet("YOLOSAWWWWWG"));
-        mMap.addMarker(new MarkerOptions().position(casino).title("Marker at Ubaten"));
-        mMap.addMarker(new MarkerOptions().position(ubaten).title("Marker at Casino"));
-        mMap.addMarker(new MarkerOptions().position(niagara).title("Marker in Niagra"));
+        markerLatLng.add(home);
+        markerLatLng.add(ubaten);
+        markerLatLng.add(casino);
+        markerLatLng.add(niagara);
 
+        //Markers
+        Marker homeM = mMap.addMarker(new MarkerOptions().position(home).title("Marker at home"));
+        Marker ubatenM = mMap.addMarker(new MarkerOptions().position(casino).title("Marker at Ubaten"));
+        Marker casinoM = mMap.addMarker(new MarkerOptions().position(ubaten).title("Marker at Casino"));
+        Marker niagaraM = mMap.addMarker(new MarkerOptions().position(niagara).title("Marker in Niagra"));
+
+        markerPos.add(homeM);
+        markerPos.add(ubatenM);
+        markerPos.add(casinoM);
+        markerPos.add(niagaraM);
+
+        //Camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(start));//Flyttar kameran till kordinaten
         mMap.moveCamera(CameraUpdateFactory.zoomTo(14));//Zooma in 1-20
 
-        mMap.setOnMarkerClickListener(this);
-    }
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                FragmentTransaction fT = getSupportFragmentManager().beginTransaction();
+                MediaPlayer mPlayer = MediaPlayer.create(getBaseContext(), R.raw.horn);
+                mPlayer.start();
+                switch (marker.getTitle()) {
+                    case "Q-1":
+                        Qone dialog1 = new Qone();
+                        dialog1.show(fT, "");
+                        break;
+                    case "Q-2":
+                        Qtwo dialog2 = new Qtwo();
+                        dialog2.show(fT, "");
+                        break;
+                    case "Q-3":
+                        Qthree dialog3 = new Qthree();
+                        dialog3.show(fT, "");
+                        break;
+                    case "Q-4":
+                        Qfour dialog4 = new Qfour();
+                        dialog4.show(fT, "");
+                        break;
 
-    @Override
-    public boolean onMarkerClick(Marker marker) {
-
-        FragmentTransaction fT = getSupportFragmentManager().beginTransaction();
-        DialogFragment newFrag = new MarkerClickDialog();
-        //newFrag.show(fT, "dialog");
-
-        //mDialog.show(ft,"dialog"
-        return false;
-
+                }
+                return true;
+            }
+        });
     }
 
     @Override
@@ -111,7 +153,24 @@ public class MapsActivity extends FragmentActivity implements
     }
 
     @Override
-    public void onLocationChanged(Location location) {
+     public void onLocationChanged(Location location) {
+        Vibrator mVib = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
+        Location mLocation = new Location("marker");
+
+        for (int i = 0; i < markerPos.size(); i++) {
+
+            mLocation.setLongitude(markerLatLng.get(i).longitude);
+            mLocation.setLatitude(markerLatLng.get(i).latitude);
+
+            float distance = location.distanceTo(mLocation);
+
+            if(distance < 80){
+                mVib.vibrate(1000);
+                markerPos.get(i).setTitle("Q-"+(i+1));
+                markerPos.get(i).setSnippet("Click to answer question!!");
+                markerPos.get(i).showInfoWindow();
+            }
+        }
     }
 }
