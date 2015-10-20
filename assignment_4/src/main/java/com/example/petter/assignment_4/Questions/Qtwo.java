@@ -19,10 +19,10 @@ public class Qtwo  extends DialogFragment implements Dialog.OnClickListener {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        AlertDialog.Builder qOne = new AlertDialog.Builder(getActivity())
+        AlertDialog.Builder qTwo = new AlertDialog.Builder(getActivity())
                 .setTitle("Where can you find Alcatraz?")
                 .setItems(new CharSequence[]{"A) Los Angeles", "B) San Diego", "C) San Francisco"}, this);
-        return qOne.create();
+        return qTwo.create();
     }
 
     @Override

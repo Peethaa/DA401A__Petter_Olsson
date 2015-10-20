@@ -19,10 +19,10 @@ public class Qthree extends DialogFragment implements Dialog.OnClickListener {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        AlertDialog.Builder qOne = new AlertDialog.Builder(getActivity())
+        AlertDialog.Builder qThree = new AlertDialog.Builder(getActivity())
                 .setTitle("What year was Nintendo founded?")
                 .setItems(new CharSequence[]{"A) 1976", "B) 1945", "C) 1889"}, this);
-        return qOne.create();
+        return qThree.create();
     }
 
     @Override

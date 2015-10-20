@@ -19,10 +19,10 @@ public class Qfour extends DialogFragment implements Dialog.OnClickListener {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        AlertDialog.Builder qOne = new AlertDialog.Builder(getActivity())
+        AlertDialog.Builder qFour = new AlertDialog.Builder(getActivity())
                 .setTitle("Computerterm: what does ROM stand for?")
                 .setItems(new CharSequence[]{"A) Read Only Memory", "B) Read Once Memory", "D) Read Once Module"}, this);
-        return qOne.create();
+        return qFour.create();
     }
 
     @Override
