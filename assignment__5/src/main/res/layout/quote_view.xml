@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/custom_Grey"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bar"
+        android:layout_centerInParent="true"
+        style="@android:style/Widget.Holo.Light.ProgressBar.Large"
+        android:layout_marginRight="5dp" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/quote_Listview"
+        android:layout_below="@+id/HC"
+        android:divider="@color/custom_LightGrey"
+        android:dividerHeight="2dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/qButton"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:clickable="true"
+            android:src="@drawable/ic_add_circle_black_48dp"
+            app:backgroundTint="@color/custom_Red"/>
+
+    </LinearLayout>
+</RelativeLayout>
